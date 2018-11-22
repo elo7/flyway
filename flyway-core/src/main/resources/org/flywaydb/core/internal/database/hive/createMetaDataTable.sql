@@ -1,5 +1,5 @@
 --
--- Copyright 2010-2016 Boxfuse GmbH
+-- Copyright 2010-2018 Boxfuse GmbH
 --
 -- Licensed under the Apache License, Version 2.0 (the "License");
 -- you may not use this file except in compliance with the License.
@@ -14,9 +14,18 @@
 -- limitations under the License.
 --
 
-CREATE TABLE ${tableName} (
-  id int
-);
-
-THIS IS NOT VALID SQL;
-THIS MIGRATION SHOULD FAIL;
+-- Create table
+CREATE TABLE ${schema}.${table} (
+  version STRING,
+  installed_rank INT,
+  description STRING,
+  type STRING,
+  script STRING,
+  checksum INT,
+  installed_by STRING,
+  installed_on TIMESTAMP,
+  execution_time INT,
+  success BOOLEAN
+)
+CLUSTERED BY(version) INTO 1 BUCKETS
+STORED AS ORC TBLPROPERTIES ("transactional"="true");
